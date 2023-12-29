@@ -10,6 +10,7 @@ WORK_MIN = 0.2
 SHORT_BREAK_MIN = 0.1
 LONG_BREAK_MIN = 0.3
 reps=0
+marks=''
 # ---------------------------- TIMER RESET ------------------------------- # 
 
 # ---------------------------- TIMER MECHANISM ------------------------------- # 
@@ -29,9 +30,10 @@ def start_timer():
     else:
         count_down(work_sec)
         label.config(text="Work",fg=GREEN)
-
+        
 # ---------------------------- COUNTDOWN MECHANISM ------------------------------- # 
 def count_down(count):
+    global reps,marks
     count_min=math.floor(count/60)
     count_secs=count%60
     if count_secs<10:
@@ -41,7 +43,12 @@ def count_down(count):
     if count>0:
         window.after(1000,count_down,count-1)
     else:
+        if reps%2!=0:
+            marks+='✔'
+        checkmark.config(text=marks)  
         start_timer()
+          
+        
         
     
         
@@ -76,7 +83,7 @@ start_btn.grid(column=0,row=2)
 reset_btn=Button(text="Reset")
 reset_btn.grid(column=2,row=2)
 
-checkmark=Label(text="✔",bg=YELLOW,fg=GREEN)
+checkmark=Label(text="",bg=YELLOW,fg=GREEN)
 checkmark.grid(column=1,row=3)
 
 window.mainloop()
