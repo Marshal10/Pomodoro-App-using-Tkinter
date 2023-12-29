@@ -11,11 +11,20 @@ SHORT_BREAK_MIN = 0.1
 LONG_BREAK_MIN = 0.3
 reps=0
 marks=''
+reset_game=False
 # ---------------------------- TIMER RESET ------------------------------- # 
-
+def reset():
+    global reps,marks,reset_game
+    reset_game=True
+    reps=0
+    marks=''
+    label.config(text="Timer",fg=GREEN)
+    checkmark.config(text=marks) 
+    canvas.itemconfig(canvas_text,text="00:00")
 # ---------------------------- TIMER MECHANISM ------------------------------- # 
 def start_timer():
-    global reps
+    global reps,reset_game
+    reset_game=False
     reps+=1
     work_sec=math.floor(60*WORK_MIN)
     short_break_sec=math.floor(60*SHORT_BREAK_MIN)
@@ -36,6 +45,8 @@ def count_down(count):
     global reps,marks
     count_min=math.floor(count/60)
     count_secs=count%60
+    if reset_game:
+        return
     if count_secs<10:
         count_secs=f"0{count_secs}"
     canvas.itemconfig(canvas_text,text=f"{count_min}:{count_secs}")  
@@ -80,7 +91,7 @@ canvas.grid(column=1,row=1)
 start_btn=Button(text="Start",command=start_timer)
 start_btn.grid(column=0,row=2)
 
-reset_btn=Button(text="Reset")
+reset_btn=Button(text="Reset",command=reset)
 reset_btn.grid(column=2,row=2)
 
 checkmark=Label(text="",bg=YELLOW,fg=GREEN)
