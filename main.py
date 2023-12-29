@@ -12,6 +12,7 @@ LONG_BREAK_MIN = 0.3
 reps=0
 marks=''
 reset_game=False
+
 # ---------------------------- TIMER RESET ------------------------------- # 
 def reset():
     global reps,marks,reset_game
@@ -21,6 +22,7 @@ def reset():
     label.config(text="Timer",fg=GREEN)
     checkmark.config(text=marks) 
     canvas.itemconfig(canvas_text,text="00:00")
+    
 # ---------------------------- TIMER MECHANISM ------------------------------- # 
 def start_timer():
     global reps,reset_game
@@ -59,13 +61,7 @@ def count_down(count):
         checkmark.config(text=marks)  
         start_timer()
           
-        
-        
-    
-        
-     
-    
-    
+          
 def min_countdown(secs,mins):
     if secs==0 and mins!=0:
         print("Condition satisfied")
@@ -77,7 +73,6 @@ def min_countdown(secs,mins):
 window=Tk()
 window.title("Pomodoro App")
 window.config(padx=50,pady=50,bg=YELLOW)
-
 
 label=Label(text="Timer",font=(FONT_NAME,50,"normal"),fg=GREEN,bg=YELLOW)
 label.grid(column=1,row=0)
